@@ -1,11 +1,5 @@
 {
   "comment": "",
   "ignore": "test",
-  "rootPath": "github.com/heroku/json-feeder",
-  "heroku": {
-    "install": [
-      "./..."
-    ],
-    "goVersion": "go1.11"
-  }
+  "rootPath": "github.com/jonathan-yeung-fullspeed/json-feeder"
 }
