@@ -17,7 +17,7 @@ type Record struct {
 }
 
 func main() {
-	port := os.GenEnv("PORT")
+	port := os.GetEnv("PORT")
 	if port == "" {
 		log.Fatal("$PORT must be set")
 	}
