@@ -1,6 +1,9 @@
 {
-	"comment": "",
-	"ignore": "test",
-	"package": [],
-	"rootPath": "json-feeder"
+  "comment": "",
+  "ignore": "test",
+  "package": [
+    "./..."
+  ],
+  "goVersion": "go1.11",
+  "rootPath": "json-feeder"
 }
