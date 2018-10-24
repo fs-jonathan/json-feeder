@@ -2,5 +2,11 @@
   "comment": "",
   "ignore": "test",
   "package": [],
-  "rootPath": "github.com/json-feeder"
+  "rootPath": "github.com/json-feeder",
+  "heroku": {
+    "install": [
+      "./..."
+    ],
+    "goVersion": "go1.11"
+  }
 }
