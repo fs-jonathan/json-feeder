@@ -2,7 +2,7 @@
   "comment": "",
   "ignore": "test",
   "package": [],
-  "rootPath": "github.com/json-feeder",
+  "rootPath": "github.com/heroku/json-feeder",
   "heroku": {
     "install": [
       "./..."
