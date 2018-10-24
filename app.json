@@ -9,6 +9,8 @@
     "json",
     "feeder"
   ],
+  "image": "heroku/go:1.11",
+  "mount_dir": "src/github.com/json-feeder",
   "website": "https://github.com/jonathan-yeung-fullspeed/json-feeder",
   "repository": "https://github.com/jonathan-yeung-fullspeed/json-feeder"
 }
