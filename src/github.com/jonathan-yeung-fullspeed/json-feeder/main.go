@@ -3,8 +3,6 @@ package main
 import (
 	"encoding/json"
 	"net/http"
-	"os"
-	"log"
 )
 
 type Record struct {
@@ -17,13 +15,8 @@ type Record struct {
 }
 
 func main() {
-	port := os.GetEnv("PORT")
-	if port == "" {
-		log.Fatal("$PORT must be set")
-	}
-
 	http.HandleFunc("/", jsonWriter)
-	http.ListenAndServe(":" + port, nil)
+	http.ListenAndServe(":8080", nil)
 }
 
 func jsonWriter(w http.ResponseWriter, r *http.Request) {
