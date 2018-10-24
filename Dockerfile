@@ -1,7 +1,7 @@
 FROM heroku/heroku:16-build as build
 
-COPY . /app
-WORKDIR /app
+COPY . /src
+WORKDIR /src
 
 # Setup buildpack
 RUN mkdir -p /tmp/buildpack/heroku/go /tmp/build_cache /tmp/env
@@ -13,9 +13,9 @@ RUN STACK=heroku-16 /tmp/buildpack/heroku/go/bin/compile /app /tmp/build_cache /
 # Prepare final, minimal image
 FROM heroku/heroku:16
 
-COPY --from=build /app /app
-ENV HOME /app
-WORKDIR /app
+COPY --from=build /src /src
+ENV HOME /src
+WORKDIR /src
 RUN useradd -m heroku
 USER heroku
-CMD /app/bin/go-getting-started
+CMD /bin/json-feeder
