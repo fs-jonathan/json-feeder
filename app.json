@@ -1,12 +1,14 @@
 {
-  "name": "Start on Heroku: Go",
-  "description": "Go Getting Started Example App",
+  "name": "Start on Heroku: Go JSON Feeder",
+  "description": "Go Getting Started Example App: JSON Feeder",
   "keywords": [
     "getting-started",
     "go",
     "sample",
-    "example"
+    "example",
+    "json",
+    "feeder"
   ],
-  "website": "http://github.com/heroku/go-getting-started",
-  "repository": "http://github.com/heroku/go-getting-started"
+  "website": "https://github.com/jonathan-yeung-fullspeed/json-feeder",
+  "repository": "https://github.com/jonathan-yeung-fullspeed/json-feeder"
 }
