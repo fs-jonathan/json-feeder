@@ -2,9 +2,11 @@
   "comment": "",
   "ignore": "test",
   "package": [],
-	"heroku": {
-		"install": ["./..."],
-		"goVersion": "go1.11",
-	},
+  "heroku": {
+    "install": [
+      "./..."
+    ],
+    "goVersion": "go1.11"
+  },
   "rootPath": "json-feeder"
 }
