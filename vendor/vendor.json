@@ -4,9 +4,6 @@
   "package": [],
   "rootPath": "github.com/heroku/json-feeder",
   "heroku": {
-    "install": [
-      "./..."
-    ],
     "goVersion": "go1.11"
   }
 }
