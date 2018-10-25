@@ -24,6 +24,7 @@ func main() {
 		return
 	}
 
+	http.HandleFunc("/", blankScreen)
 	http.HandleFunc("/getJson", jsonWriter)
 	http.ListenAndServe(":" + port, nil)
 }
@@ -49,4 +50,8 @@ func jsonWriter(w http.ResponseWriter, r *http.Request) {
 
 	w.Header().Set("Content-Type", "application/json")
 	w.Write(js)
+}
+
+func blankScreen(w http.ResponseWriter, r *http.Request) {
+	http.ServeFile(w, r, "hello.html")
 }
