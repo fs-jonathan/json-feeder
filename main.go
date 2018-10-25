@@ -27,12 +27,11 @@ func main() {
 }
 
 func jsonWriter(w http.ResponseWriter, r *http.Request) {
-	record := []Record{}
-	append(record, Record{1, "本日（現時点まで）", "", 9, 8, 7})
-	append(record, Record{2, "昨日", "先週の同じ曜日との比較", 344, 43243, 43})
-	append(record, Record{3, "今月（現時点まで）", "先週の同じ曜日との比較", 1, 0, 0})
-	append(record, Record{4, "先月", "先々月との比較", 93, 83, 72})
-	append(record, Record{5, "全期間", "", 20, 4, 434})
+	s0 := []Record{Record{1, "本日（現時点まで）", "", 9, 8, 7}}
+	s1 := append(s0, Record{2, "昨日", "先週の同じ曜日との比較", 344, 43243, 43})
+	s2 := append(s1, Record{3, "今月（現時点まで）", "先週の同じ曜日との比較", 1, 0, 0})
+	s3 := append(s2, Record{4, "先月", "先々月との比較", 93, 83, 72})
+	record := append(s3, Record{5, "全期間", "", 20, 4, 434})
 
 	js, err := json.Marshal(record)
 	if err != nil {
