@@ -1,7 +1,6 @@
 package main
 
 import (
-	"bytes"
 	"encoding/json"
 	"io/ioutil"
 	"log"
@@ -55,7 +54,7 @@ func jsonWriter(w http.ResponseWriter, r *http.Request) {
 	}
 
 	var data Message
-	decodeErr = json.Unmarshal(b, &data)
+	decodeErr := json.Unmarshal(b, &data)
 
 	if decodeErr != nil {
 		log.Fatal("Decode Error")
