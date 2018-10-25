@@ -49,12 +49,12 @@ func jsonWriter(w http.ResponseWriter, r *http.Request) {
 	bufBody := new(bytes.Buffer)
 	bufBody.ReadFrom(r.Body)
 
-	data := new(Message)
+	var data Message
 	decoder := json.NewDecoder(r.Body)
+	parseErr := decoder.Decode(&data)
 
-	if parseErr := decoder.Decode(&data); parseErr != nil {
+	if parseErr != nil {
 		log.Fatal("Parse Error")
-		return
 	}
 
 	body := bufBody.String()
