@@ -4,6 +4,8 @@ import (
 	"encoding/json"
 	"net/http"
 	"os"
+	"io/ioutil"
+	"log"
 )
 
 type Record struct {
@@ -38,6 +40,11 @@ func jsonWriter(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return
 	}
+
+	b, _ := ioutil.ReadAll(r.Body)
+
+	log.Printf(b)
+	log.Printf(r.URL.Path)
 
 	w.Header().Set("Content-Type", "application/json")
 	w.Write(js)
