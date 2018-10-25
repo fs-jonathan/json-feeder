@@ -9,12 +9,12 @@ import (
 )
 
 type Record struct {
-	Id       int
-	Title    string
-	Subtitle string
-	Cost     int
-	Compare  int
-	Rate     int
+	id       int
+	title    string
+	subtitle string
+	cost     int
+	compare  int
+	rate     int
 }
 
 func main() {
