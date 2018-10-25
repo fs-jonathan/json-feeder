@@ -18,7 +18,7 @@ type Record struct {
 }
 
 type Message struct {
-	Message string `json:"message"`
+	Message int `json:"message"`
 }
 
 func main() {
