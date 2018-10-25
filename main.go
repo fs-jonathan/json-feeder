@@ -60,7 +60,7 @@ func jsonWriter(w http.ResponseWriter, r *http.Request) {
 		log.Fatal("Decode Error")
 	}
 
-	log.Printf(string(data))
+	// log.Printf(string(data))
 	log.Printf(string(js))
 
 	w.Header().Set("Content-Type", "application/json")
