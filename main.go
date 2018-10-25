@@ -16,7 +16,7 @@ type Record struct {
 }
 
 func main() {
-	port := os.GetEnv("PORT")
+	port := os.Getenv("PORT")
 
 	if port == "" {
 		return
@@ -24,7 +24,6 @@ func main() {
 
 	http.HandleFunc("/", jsonWriter)
 	http.ListenAndServe(":" + port, nil)
-	// http.ListenAndServe(":8080", nil)
 }
 
 func jsonWriter(w http.ResponseWriter, r *http.Request) {
