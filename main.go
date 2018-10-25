@@ -53,14 +53,14 @@ func jsonWriter(w http.ResponseWriter, r *http.Request) {
 		log.Printf("Parse Error")
 	}
 
-	var data Message
+	data := Message{}
 	decodeErr := json.Unmarshal(b, &data)
 
 	if decodeErr != nil {
 		log.Printf("Decode Error")
 	}
 
-	// log.Printf(string(data))
+	log.Printf("%s", b)
 	log.Printf(string(js))
 
 	w.Header().Set("Content-Type", "application/json")
