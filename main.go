@@ -51,7 +51,7 @@ func jsonWriter(w http.ResponseWriter, r *http.Request) {
 
 	data := new(Message)
 
-	if parseErr := json.Unmarshal(bufBody, data); err != nil {
+	if parseErr := json.Unmarshal(r.Body, data); err != nil {
 		log.Fatal("Parse Error")
 		return
 	}
