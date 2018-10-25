@@ -1,20 +1,24 @@
 package main
 
 import (
+	"bytes"
 	"encoding/json"
+	"log"
 	"net/http"
 	"os"
-	"log"
-	"bytes"
 )
 
 type Record struct {
-	id       int
-	title    string
-	subtitle string
-	cost     int
-	compare  int
-	rate     int
+	Id       int    `json:"id"`
+	Title    string `json:"title"`
+	Subtitle string `json:"subtitle"`
+	Cost     int    `json:"cost"`
+	Compare  int    `json:"compare"`
+	Rate     int    `json:"rate"`
+}
+
+type Message struct {
+	Message string `json:"message"`
 }
 
 func main() {
@@ -26,7 +30,7 @@ func main() {
 
 	http.HandleFunc("/", blankScreen)
 	http.HandleFunc("/getJson", jsonWriter)
-	http.ListenAndServe(":" + port, nil)
+	http.ListenAndServe(":"+port, nil)
 }
 
 func jsonWriter(w http.ResponseWriter, r *http.Request) {
@@ -44,6 +48,14 @@ func jsonWriter(w http.ResponseWriter, r *http.Request) {
 
 	bufBody := new(bytes.Buffer)
 	bufBody.ReadFrom(r.Body)
+
+	data := new(Message)
+
+	if parseErr := json.Unmarshal(bufBody, data); err != nil {
+		log.Fatal("Parse Error")
+		return
+	}
+
 	body := bufBody.String()
 
 	log.Printf(body)
