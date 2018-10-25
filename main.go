@@ -1,29 +1,41 @@
 package main
 
 import (
-	"log"
+	"encoding/json"
 	"net/http"
 	"os"
-
-	"github.com/gin-gonic/gin"
-	_ "github.com/heroku/x/hmetrics/onload"
 )
 
+type Record struct {
+	Id       int
+	Title    string
+	Subtitle string
+	Cost     int
+	Compare  int
+	Rate     int
+}
+
 func main() {
-	port := os.Getenv("PORT")
+	port := os.GetEnv("PORT")
 
 	if port == "" {
-		log.Fatal("$PORT must be set")
+		return
 	}
 
-	router := gin.New()
-	router.Use(gin.Logger())
-	router.LoadHTMLGlob("templates/*.tmpl.html")
-	router.Static("/static", "static")
+	http.HandleFunc("/", jsonWriter)
+	http.ListenAndServe(":" + port, nil)
+	// http.ListenAndServe(":8080", nil)
+}
 
-	router.GET("/", func(c *gin.Context) {
-		c.HTML(http.StatusOK, "index.tmpl.html", nil)
-	})
+func jsonWriter(w http.ResponseWriter, r *http.Request) {
+	record := Record{1, "本日（現時点まで）", "先週の同じ曜日との比較", 9, 8, 7}
 
-	router.Run(":" + port)
+	js, err := json.Marshal(record)
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
+
+	w.Header().Set("Content-Type", "application/json")
+	w.Write(js)
 }
