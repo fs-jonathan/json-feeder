@@ -47,7 +47,7 @@ func jsonWriter(w http.ResponseWriter, r *http.Request) {
 	body := bufBody.String()
 
 	log.Printf(body)
-	log.Printf(js)
+	log.Printf(string(js))
 
 	w.Header().Set("Content-Type", "application/json")
 	w.Write(js)
