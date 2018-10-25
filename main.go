@@ -3,6 +3,7 @@ package main
 import (
 	"bytes"
 	"encoding/json"
+	"io/ioutil"
 	"log"
 	"net/http"
 	"os"
@@ -46,20 +47,21 @@ func jsonWriter(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	bufBody := new(bytes.Buffer)
-	bufBody.ReadFrom(r.Body)
-
-	var data Message
-	decoder := json.NewDecoder(r.Body)
-	parseErr := decoder.Decode(&data)
+	b, parseErr := ioutil.ReadAll(r.Body)
+	defer r.Body.Close()
 
 	if parseErr != nil {
 		log.Fatal("Parse Error")
 	}
 
-	body := bufBody.String()
+	var data Message
+	decodeErr = json.Unmarshal(b, &data)
 
-	log.Printf(body)
+	if decodeErr != nil {
+		log.Fatal("Decode Error")
+	}
+
+	log.Printf(string(data))
 	log.Printf(string(js))
 
 	w.Header().Set("Content-Type", "application/json")
