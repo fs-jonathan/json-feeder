@@ -4,9 +4,24 @@
 	"GodepVersion": "v80",
 	"Deps": [
 		{
+			"ImportPath": "github.com/dgrijalva/jwt-go",
+			"Comment": "v3.2.0-4-g3af4c74",
+			"Rev": "3af4c746e1c248ee8491a3e0c6f7a9cd831e95f8"
+		},
+		{
 			"ImportPath": "github.com/labstack/echo",
 			"Comment": "3.3.4-55-gba1891b",
 			"Rev": "ba1891b3dc1fc5548330e580c51157ea5eb6604f"
+		},
+		{
+			"ImportPath": "github.com/labstack/echo/middleware",
+			"Comment": "3.3.4-55-gba1891b",
+			"Rev": "ba1891b3dc1fc5548330e580c51157ea5eb6604f"
+		},
+		{
+			"ImportPath": "github.com/labstack/gommon/bytes",
+			"Comment": "v0.2.7",
+			"Rev": "2a618302b929cc20862dda3aa6f02f64dbe740dd"
 		},
 		{
 			"ImportPath": "github.com/labstack/gommon/color",
@@ -15,6 +30,11 @@
 		},
 		{
 			"ImportPath": "github.com/labstack/gommon/log",
+			"Comment": "v0.2.7",
+			"Rev": "2a618302b929cc20862dda3aa6f02f64dbe740dd"
+		},
+		{
+			"ImportPath": "github.com/labstack/gommon/random",
 			"Comment": "v0.2.7",
 			"Rev": "2a618302b929cc20862dda3aa6f02f64dbe740dd"
 		},
