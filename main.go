@@ -1,6 +1,7 @@
 package main
 
 import (
+	"log"
 	"net/http"
 	"os"
 
@@ -21,16 +22,30 @@ type Message struct {
 	Message int `json:"message"`
 }
 
+type LineUser struct {
+	UserId string `json:"lineUserId"`
+}
+
 func main() {
 	// Echo instance
 	e := echo.New()
+
+	// Debug mode
+	e.Debug = true
 
 	// middleware
 	e.Use(middleware.Logger())
 	e.Use(middleware.Recover())
 
+	// dump middleware captures the request and response payload
+	e.Use(middleware.BodyDump(func(c echo.Context, reqBody, resBody []byte) {
+		log.Println(string(reqBody))
+		log.Println(string(resBody))
+	}))
+
 	// Route => handler
-	e.GET("/", blankScreen)
+	e.Static("/", "html")
+	e.POST("/loginLiff", liffLogin)
 	e.POST("/getJson", jsonWriter)
 
 	// Start server from PORT number
@@ -42,7 +57,7 @@ func jsonWriter(c echo.Context) error {
 	message := new(Message)
 
 	if reqErr := c.Bind(message); reqErr != nil {
-		return c.String(http.StatusBadRequest, reqErr.Error())
+		return echo.NewHTTPError(http.StatusBadRequest, reqErr.Error())
 	}
 
 	// Return message
@@ -55,6 +70,16 @@ func jsonWriter(c echo.Context) error {
 	return c.JSON(http.StatusOK, records)
 }
 
-func blankScreen(c echo.Context) error {
-	return c.String(http.StatusOK, "Hello, Ready!!")
+func liffLogin(c echo.Context) error {
+	// Received Line UserId
+	user := new(LineUser)
+
+	if err := c.Bind(user); err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, err.Error())
+	}
+
+	log.Println(user.UserId)
+
+	message := Message{0}
+	return c.JSON(http.StatusOK, message)
 }
