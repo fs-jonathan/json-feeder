@@ -38,10 +38,10 @@ func main() {
 	e.Use(middleware.Recover())
 
 	// dump middleware captures the request and response payload
-	e.Use(middleware.BodyDump(func(c echo.Context, reqBody, resBody []byte) {
-		log.Println(string(reqBody))
-		log.Println(string(resBody))
-	}))
+	// e.Use(middleware.BodyDump(func(c echo.Context, reqBody, resBody []byte) {
+	// 	log.Println(string(reqBody))
+	// 	log.Println(string(resBody))
+	// }))
 
 	// Route => handler
 	e.Static("/", "html")

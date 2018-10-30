@@ -3,6 +3,7 @@ window.onload = function (e) {
     initializeApp(data);
   }, function() {
     $('#error').append("Liff Error");
+    // getData();
   });
 };
 
@@ -17,7 +18,7 @@ function initializeApp(data) {
       },
       timeout: 5000
     }).done(function(data) {
-      $('#error').append("Login Success");
+      getData();
     }).fail(function(XMLHttpRequest, textStatus, errorThrown) {
       showLogin();
     })
@@ -33,4 +34,8 @@ function showLogin() {
       }).done(function(data) {
         $('#login').append(data);
       });
+}
+
+function getData() {
+  window.location.href = "getRecord.html";
 }
