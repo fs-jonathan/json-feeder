@@ -9,11 +9,15 @@ function buildVue() {
       results: []
     },
     mounted () {
-      axios.post('/getJson', { "message": 0 })
-           .then(response => {
-             // console.log(response);
-             this.results = response.data;
-           })
+      this.getJson(0);
+    },
+    methods: {
+      getJson: function(id) {
+        axios.post('/getJson', { "message": id })
+             .then(response => {
+               this.results = response.data;
+             })
+      }
     }
   });
 }
