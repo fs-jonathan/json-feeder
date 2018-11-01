@@ -1,0 +1,42 @@
+[
+  {
+    "id": 1,
+    "title": "本日（現時点まで）",
+    "subtitle": "",
+    "cost": 19,
+    "compare": 18,
+    "rate": 17
+  },
+  {
+    "id": 2,
+    "title": "昨日",
+    "subtitle": "先週の同じ曜日との比較",
+    "cost": 344,
+    "compare": 43243,
+    "rate": 43
+  },
+  {
+    "id": 3,
+    "title": "今月（現時点まで）",
+    "subtitle": "先週の同じ曜日との比較",
+    "cost": 1,
+    "compare": 0,
+    "rate": 0
+  },
+  {
+    "id": 4,
+    "title": "先月",
+    "subtitle": "先々月との比較",
+    "cost": 93,
+    "compare": 83,
+    "rate": 72
+  },
+  {
+    "id": 5,
+    "title": "全期間",
+    "subtitle": "",
+    "cost": 20,
+    "compare": 4,
+    "rate": 434
+  }
+]

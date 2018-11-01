@@ -1,8 +1,12 @@
 package main
 
 import (
+	"encoding/json"
+	"io/ioutil"
+	"log"
 	"net/http"
 	"os"
+	"strconv"
 
 	"github.com/labstack/echo"
 	"github.com/labstack/echo/middleware"
@@ -21,16 +25,30 @@ type Message struct {
 	Message int `json:"message"`
 }
 
+type LineUser struct {
+	UserId string `json:"lineUserId"`
+}
+
 func main() {
 	// Echo instance
 	e := echo.New()
+
+	// Debug mode
+	e.Debug = true
 
 	// middleware
 	e.Use(middleware.Logger())
 	e.Use(middleware.Recover())
 
+	// dump middleware captures the request and response payload
+	// e.Use(middleware.BodyDump(func(c echo.Context, reqBody, resBody []byte) {
+	// 	log.Println(string(reqBody))
+	// 	log.Println(string(resBody))
+	// }))
+
 	// Route => handler
-	e.GET("/", blankScreen)
+	e.Static("/", "html")
+	e.POST("/loginLiff", liffLogin)
 	e.POST("/getJson", jsonWriter)
 
 	// Start server from PORT number
@@ -42,19 +60,49 @@ func jsonWriter(c echo.Context) error {
 	message := new(Message)
 
 	if reqErr := c.Bind(message); reqErr != nil {
-		return c.String(http.StatusBadRequest, reqErr.Error())
+		return echo.NewHTTPError(http.StatusBadRequest, reqErr.Error())
 	}
 
-	// Return message
+	// log.Println(message)
+	b, err := ioutil.ReadFile("json/record" + strconv.Itoa(message.Message) + ".json")
+
+	// Return default message on any error
+	if err != nil {
+		// log.Println(err)
+		return c.JSON(http.StatusOK, getDefaultRecord())
+	}
+
+	var records []Record
+	parseErr := json.Unmarshal(b, &records)
+
+	if parseErr != nil {
+		// log.Println(parseErr)
+		return c.JSON(http.StatusOK, getDefaultRecord())
+	}
+
+	return c.JSON(http.StatusOK, records)
+}
+
+func getDefaultRecord() []Record {
 	s0 := []Record{Record{1, "本日（現時点まで）", "", 9, 8, 7}}
 	s1 := append(s0, Record{2, "昨日", "先週の同じ曜日との比較", 344, 43243, 43})
 	s2 := append(s1, Record{3, "今月（現時点まで）", "先週の同じ曜日との比較", 1, 0, 0})
 	s3 := append(s2, Record{4, "先月", "先々月との比較", 93, 83, 72})
 	records := append(s3, Record{5, "全期間", "", 20, 4, 434})
 
-	return c.JSON(http.StatusOK, records)
+	return records
 }
 
-func blankScreen(c echo.Context) error {
-	return c.String(http.StatusOK, "Hello, Ready!!")
+func liffLogin(c echo.Context) error {
+	// Received Line UserId
+	user := new(LineUser)
+
+	if err := c.Bind(user); err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, err.Error())
+	}
+
+	log.Println(user.UserId)
+
+	message := Message{0}
+	return c.JSON(http.StatusOK, message)
 }
