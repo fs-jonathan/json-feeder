@@ -29,6 +29,10 @@ type LineUser struct {
 	UserId string `json:"lineUserId"`
 }
 
+type FirebaseUser struct {
+	UserId string `json:"userid"`
+}
+
 func main() {
 	// Echo instance
 	e := echo.New()
@@ -49,6 +53,7 @@ func main() {
 	// Route => handler
 	e.Static("/", "html")
 	e.POST("/loginLiff", liffLogin)
+	e.POST("/loginReact", reactLogin)
 	e.POST("/getJson", jsonWriter)
 
 	// Start server from PORT number
@@ -105,4 +110,17 @@ func liffLogin(c echo.Context) error {
 
 	message := Message{0}
 	return c.JSON(http.StatusOK, message)
+}
+
+func reactLogin(c echo.Context) error {
+	// Received Firebase UserId
+	user := new(FirebaseUser)
+
+	if err := c.Bind(user); err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, err.Error())
+	}
+
+	log.Println(user.UserId)
+
+	return c.NoContent(http.StatusOK)
 }
