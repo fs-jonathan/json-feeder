@@ -9,7 +9,7 @@
     </div>
 
     <div style="display:none" id="content" v-if="results">
-      <div v-for="result in results">
+      <div v-for="(result, key, index) in results" :key="index">
         <div class="bg-white hover:bg-grey-light m-3 max-w-sm shadow-md rounded-md overflow-hidden" v-on:click="getJson(result.id)">
           <div class="text-left p-1 sm:text-left sm:flex-grow">
             <span class="text-sm leading-tight">{{ result.title }}</span>
