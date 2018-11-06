@@ -11,6 +11,7 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import axios from 'axios'
+import $ from 'liff'
 
 import Login from './components/Login.vue'
 import GetRecord from './components/GetRecord.vue'
@@ -31,25 +32,15 @@ export default {
     errorMessage: ""
   }),
   mounted() {
-    this.presetLiff();
-    // this.initLiff();
+    this.initLiff();
     // this.initData("Hello");
-    this.showData();
+    // this.showLogin();
+    // this.showData();
   },
   methods: {
-    presetLiff: function() {
-      // 設定済み
-      if (document.getElementById('liff-line')) return;
-
-      var liffScript = document.createElement('script');
-      liffScript.src = 'https://d.line-scdn.net/liff/1.0/sdk.js';
-      liffScript.id = 'liff-line';
-
-      document.getElementByTagName('head')[0].appendChild(liffScript);
-    },
     initLiff: function() {
       var vm = this; // keep reference of viewmodel object
-      liff.init(function (data) {
+      $.init(function (data) {
         vm.initData(data);
       }, function() {
         vm.errorMessage = "Liff Error";
@@ -57,11 +48,12 @@ export default {
     },
     initData: function(data) {
       if (data) {
-        axios.post('/loginLiff', { "lineUserId": data.context.userId })
-             .then(response => {
+        const userId = data.context.userId;
+        axios.post('/loginLiff', { "lineUserId": userId })
+             .then(() => {
                this.showData();
              })
-             .catch(err => {
+             .catch(() => {
                this.showLogin();
              })
       } else {
