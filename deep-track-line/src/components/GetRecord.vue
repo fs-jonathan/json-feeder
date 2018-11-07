@@ -19,8 +19,8 @@
             <strong class="text-xl leading-tight">¥{{ result.cost }}</strong>
           </div>
           <div class="text-left sm:text-left sm:flex-grow p-1">
-            <img src="../assets/icon_arrow_right.png" class="w-1"/>
-            <span class="text-xs leading-tight text-grey-dark">¥{{ result.compare }}({{ result.rate }}%)</span>
+            <img src="../assets/icon_arrow_right.png" class="w-2"/>
+            <span class="text-xs text-grey-dark m-1">¥{{ result.compare }}({{ result.rate }}%)</span>
           </div>
         </div>
       </div>
@@ -65,18 +65,8 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-h3 {
-  margin: 40px 0 0;
-}
-ul {
-  list-style-type: none;
-  padding: 0;
-}
-li {
-  display: inline-block;
-  margin: 0 10px;
-}
-a {
-  color: #42b983;
+.arrow {
+  width: 12px;
+  height: 12px;
 }
 </style>
