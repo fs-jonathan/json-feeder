@@ -1,5 +1,5 @@
 <template>
-  <div class="getRecord">
+  <div class="showRecord">
     <div id="loader">
       <vue-element-loading :active="loading" spinner="bar-fade-scale" :is-full-screen="true"/>
     </div>
@@ -8,26 +8,9 @@
       <p class="text-sm">{{ error }}</p>
     </div>
 
-    <div id="calendar" class='control border-b m-3'>
-      <v-date-picker
-        mode='range'
-        v-model='selectedDate'
-        :input-props='{ class: "input flex", readonly: true, style: "min-width: 300px;" }'
-        show-caps>
-        <b-field>
-          <b-input
-            type='text'
-            icon='calendar'
-            :value='inputValue'
-            rounded>
-          </b-input>
-        </b-field>
-      </v-date-picker>
-    </div>
-
     <div style="display:none" id="content" v-if="results">
       <div v-for="(result, key, index) in results" :key="index">
-        <div class="bg-white hover:bg-grey-light m-3 max-w-sm shadow-md rounded-md overflow-hidden" v-on:click="showRecord(result.id)">
+        <div class="bg-white hover:bg-grey-light m-3 max-w-sm shadow-md rounded-md overflow-hidden">
           <div class="text-left p-1 sm:text-left sm:flex-grow">
             <span class="text-sm leading-tight">{{ result.title }}</span>
             <span class="text-xs leading-tight text-grey-dark sm:inline">{{ result.subtitle }}</span>
@@ -46,19 +29,14 @@
 </template>
 
 <script>
-import axios from 'axios'
-import moment from 'moment'
+import axios from 'axios';
 
 export default {
-  name: 'GetRecord',
+  name: 'ShowRecord',
   data: () => ({
     loading: false,
     results: null,
-    error: null,
-    selectedDate: {
-      start: moment(Date.now()).subtract(5, 'd').toDate(),
-      end: new Date()
-    }
+    error: null
   }),
   created () {
     // fetch the data when the view is created and the data is already being observed
@@ -79,9 +57,6 @@ export default {
              this.loading = false
              document.getElementById("content").style.display = "block";
            })
-    },
-    showRecord: function(id) {
-      this.$router.push({ name: 'ShowRecord', params: { index: id } });
     }
   }
 }
