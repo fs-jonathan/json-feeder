@@ -12,6 +12,7 @@ import VCalendar from 'v-calendar'
 import 'v-calendar/lib/v-calendar.min.css'
 
 import VueMoment from 'vue-moment'
+import VueRouter from 'vue-router'
 
 Vue.config.productionTip = false
 
@@ -22,6 +23,7 @@ Vue.use(VCalendar, {
   paneWidth: 300
 })
 Vue.use(VueMoment)
+Vue.use(VueRouter)
 
 new Vue({
   render: h => h(App),
