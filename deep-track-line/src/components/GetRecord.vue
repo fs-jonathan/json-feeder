@@ -8,6 +8,23 @@
       <p class="text-sm">{{ error }}</p>
     </div>
 
+    <div id="calendar" class='control border-b m-3'>
+      <v-date-picker
+        mode='range'
+        v-model='selectedDate'
+        :input-props='{ class: "input flex", readonly: true, style: "min-width: 300px;" }'
+        show-caps>
+        <b-field>
+          <b-input
+            type='text'
+            icon='calendar'
+            :value='inputValue'
+            rounded>
+          </b-input>
+        </b-field>
+      </v-date-picker>
+    </div>
+
     <div style="display:none" id="content" v-if="results">
       <div v-for="(result, key, index) in results" :key="index">
         <div class="bg-white hover:bg-grey-light m-3 max-w-sm shadow-md rounded-md overflow-hidden" v-on:click="getJson(result.id)">
@@ -29,21 +46,26 @@
 </template>
 
 <script>
-import axios from 'axios'
+import axios from 'axios';
+import moment from 'moment';
 
 export default {
   name: 'GetRecord',
   data: () => ({
     loading: false,
     results: null,
-    error: null
+    error: null,
+    selectedDate: {
+      start: moment(Date.now()).subtract(5, 'd').toDate(),
+      end: new Date()
+    }
   }),
   created () {
     // fetch the data when the view is created and the data is already being observed
     this.getJson(this.$route.params.index)
   },
   methods: {
-    getJson(id) {
+    getJson: function(id) {
       this.loading = true
 
       axios.post('/getJson', { "message": id })
