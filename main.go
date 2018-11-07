@@ -51,7 +51,7 @@ func main() {
 	// }))
 
 	// Route => handler
-	e.Static("/", "html")
+	e.Static("/", "deep-track-line/dist")
 	e.POST("/loginLiff", liffLogin)
 	e.POST("/loginReact", reactLogin)
 	e.POST("/getJson", jsonWriter)

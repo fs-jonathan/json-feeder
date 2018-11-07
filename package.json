@@ -1,0 +1,11 @@
+{
+  "name": "deep-track-line",
+  "version": "0.0.1",
+  "engines": {
+    "node": "10.11.0",
+    "npm": "6.4.1"
+  },
+  "scripts": {
+    "postinstall": "npm --prefix ./deep-track-line install ./deep-track-line && cd ./deep-track-line && npm run build"
+  }
+}

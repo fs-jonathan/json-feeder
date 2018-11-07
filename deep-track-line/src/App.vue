@@ -1,0 +1,82 @@
+<template>
+  <div id="app">
+    <h3>{{ errorMessage }}</h3>
+    <!-- route outlet -->
+    <!-- component matched by the route will render here -->
+    <router-view></router-view>
+  </div>
+</template>
+
+<script>
+import Vue from 'vue'
+import VueRouter from 'vue-router'
+import axios from 'axios'
+import $ from 'liff'
+
+import Login from './components/Login.vue'
+import GetRecord from './components/GetRecord.vue'
+
+Vue.use(VueRouter)
+
+const router = new VueRouter({
+  routes: [
+    { path: '/login', component: Login },
+    { path: '/getRecord', component: GetRecord, props: { index: 0 } }
+  ]
+})
+
+export default {
+  router,
+  name: 'app',
+  data: () => ({
+    errorMessage: ""
+  }),
+  mounted() {
+    this.initLiff();
+    // this.initData("Hello");
+    // this.showLogin();
+    // this.showData();
+  },
+  methods: {
+    initLiff: function() {
+      var vm = this; // keep reference of viewmodel object
+      $.init(function (data) {
+        vm.initData(data);
+      }, function() {
+        vm.errorMessage = "Liff Error";
+      });
+    },
+    initData: function(data) {
+      if (data) {
+        const userId = data.context.userId;
+        axios.post('/loginLiff', { "lineUserId": userId })
+             .then(() => {
+               this.showData();
+             })
+             .catch(() => {
+               this.showLogin();
+             })
+      } else {
+        this.errorMessage = "Wrong Page Access";
+      }
+    },
+    showLogin: function() {
+      router.replace('/login');
+    },
+    showData: function() {
+      router.replace('/getRecord');
+    }
+  }
+}
+</script>
+
+<style>
+#app {
+  font-family: 'Avenir', Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-align: left;
+  color: #2c3e50;
+  margin-top: 60px;
+}
+</style>
