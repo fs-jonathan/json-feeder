@@ -1,7 +1,7 @@
 <template>
   <div class="getRecord">
-    <div id="loader" class="absolute" v-if="loading">
-      <p class="text-base p-2">Loading...</p>
+    <div id="loader">
+      <vue-element-loading :active="loading" spinner="bar-fade-scale" :is-full-screen="true"/>
     </div>
 
     <div class="bg-blue-lightest border-t border-b border-blue text-blue-dark px-4 py-3" v-if="error">
@@ -77,7 +77,6 @@ export default {
            })
            .finally(() => {
              this.loading = false
-             document.getElementById("loader").style.display = "none";
              document.getElementById("content").style.display = "block";
            })
     },

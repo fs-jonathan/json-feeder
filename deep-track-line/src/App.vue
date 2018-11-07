@@ -1,6 +1,7 @@
 <template>
   <div id="app">
     <h3>{{ errorMessage }}</h3>
+    <vue-element-loading :active="loading" spinner="bar-fade-scale" :is-full-screen="true"/>
     <!-- route outlet -->
     <!-- component matched by the route will render here -->
     <router-view></router-view>
@@ -28,6 +29,7 @@ export default {
   router,
   name: 'app',
   data: () => ({
+    loading: false,
     errorMessage: ""
   }),
   mounted() {
@@ -48,12 +50,17 @@ export default {
     initData: function(data) {
       if (data) {
         const userId = data.context.userId;
+        this.loading = true
+
         axios.post('/loginLiff', { "lineUserId": userId })
              .then(() => {
                this.showData();
              })
              .catch(() => {
                this.showLogin();
+             })
+             .finally(() => {
+               this.loading = false
              })
       } else {
         this.errorMessage = "Wrong Page Access";
